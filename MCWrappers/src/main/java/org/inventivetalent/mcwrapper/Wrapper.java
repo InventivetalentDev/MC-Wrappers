@@ -33,7 +33,7 @@ public abstract class Wrapper {
 		this.handle = classWrapper.newInstance();
 		this.classWrapper = classWrapper;
 		this.type = Type.fromPackage(classWrapper.getName());
-		this.fieldResolver = new FieldResolver(classWrapper.getClass());
+		this.fieldResolver = new FieldResolver(classWrapper.getClazz());
 	}
 
 	public Wrapper(@Nonnull Class<?> clazz) {
@@ -43,13 +43,13 @@ public abstract class Wrapper {
 	public Wrapper(@Nonnull ClassWrapper classWrapper, ConstructorPopulator... populators) {
 		this.classWrapper = classWrapper;
 		this.type = Type.fromPackage(classWrapper.getName());
-		this.fieldResolver = new FieldResolver(classWrapper.getClass());
+		this.fieldResolver = new FieldResolver(classWrapper.getClazz());
 
 		Class<?>[][] classArray = new Class[populators.length][0];
 		for (int i = 0; i < populators.length; i++) {
 			classArray[i] = populators[i].types();
 		}
-		ConstructorWrapper<?> constructorWrapper = new ConstructorResolver(classWrapper.getClass()).resolveWrapper(classArray);
+		ConstructorWrapper<?> constructorWrapper = new ConstructorResolver(classWrapper.getClazz()).resolveWrapper(classArray);
 		int i = 0;
 		for (Class<?>[] array : classArray) {
 			if (Arrays.equals(array, constructorWrapper.getParameterTypes())) {
