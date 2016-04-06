@@ -62,7 +62,7 @@ public class GameProfileWrapper extends Wrapper {
 	}
 
 	public GameProfileWrapper(JsonObject jsonObject) {
-		this(UUID.fromString(jsonObject.get("id").getAsString()), jsonObject.get("name").getAsString());
+		this(parseUUID(jsonObject.get("id").getAsString()), jsonObject.get("name").getAsString());
 		getProperties().clear();
 		if (jsonObject.has("properties")) {
 			getProperties().putAll(new PropertyMapWrapper(jsonObject.get("properties").getAsJsonArray()));
@@ -71,7 +71,7 @@ public class GameProfileWrapper extends Wrapper {
 
 	@Deprecated
 	public GameProfileWrapper(JSONObject jsonObject) {
-		this(UUID.fromString((String) jsonObject.get("id")), (String) jsonObject.get("name"));
+		this(parseUUID((String) jsonObject.get("id")), (String) jsonObject.get("name"));
 		getProperties().clear();
 		if (jsonObject.containsKey("properties")) {
 			getProperties().putAll(new PropertyMapWrapper((JSONArray) jsonObject.get("properties")));
@@ -106,6 +106,11 @@ public class GameProfileWrapper extends Wrapper {
 			jsonObject.add("properties", getProperties().toJson());
 		}
 		return jsonObject;
+	}
+
+	static UUID parseUUID(String string) {
+		if (string == null || string.isEmpty()) { return null; }
+		return UUID.fromString(string);
 	}
 
 }
