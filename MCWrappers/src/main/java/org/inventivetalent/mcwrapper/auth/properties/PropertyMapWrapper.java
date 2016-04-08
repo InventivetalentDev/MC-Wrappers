@@ -64,7 +64,7 @@ public class PropertyMapWrapper extends Wrapper {
 			JsonElement next = iterator.next();
 			if (next instanceof JsonObject) {
 				JsonObject jsonObject = next.getAsJsonObject();
-				put(jsonObject.get("name").getAsString(), new PropertyWrapper(jsonObject.get("name").getAsString(), jsonObject.get("value").getAsString(), jsonObject.get("signature").getAsString()));
+				put(jsonObject.get("name").getAsString(), new PropertyWrapper(jsonObject.get("name").getAsString(), jsonObject.get("value").getAsString(), jsonObject.has("signature") ? jsonObject.get("signature").getAsString() : null));
 			}
 		}
 	}
@@ -76,7 +76,7 @@ public class PropertyMapWrapper extends Wrapper {
 			Object next = iterator.next();
 			if (next instanceof JSONObject) {
 				JSONObject jsonObject = (JSONObject) next;
-				put((String) jsonObject.get("name"), new PropertyWrapper((String) jsonObject.get("name"), (String) jsonObject.get("value"), (String) jsonObject.get("signature")));
+				put((String) jsonObject.get("name"), new PropertyWrapper((String) jsonObject.get("name"), (String) jsonObject.get("value"), jsonObject.containsKey("signature") ? ((String) jsonObject.get("signature")) : null));
 			}
 		}
 	}
