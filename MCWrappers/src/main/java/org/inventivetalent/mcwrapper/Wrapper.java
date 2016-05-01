@@ -7,6 +7,7 @@ import org.inventivetalent.reflection.resolver.minecraft.NMSClassResolver;
 import org.inventivetalent.reflection.resolver.minecraft.OBCClassResolver;
 import org.inventivetalent.reflection.resolver.wrapper.ClassWrapper;
 import org.inventivetalent.reflection.resolver.wrapper.ConstructorWrapper;
+import org.inventivetalent.reflection.resolver.wrapper.FieldWrapper;
 
 import javax.annotation.Nonnull;
 import java.util.Arrays;
@@ -74,11 +75,13 @@ public abstract class Wrapper {
 	}
 
 	public <T> T getFieldValue(String... names) {
-		return getFieldResolver().<T>resolveWrapper(names).get(getHandle());
+		FieldWrapper<T> wrapper = getFieldResolver().resolveWrapper(names);
+		return wrapper != null ? wrapper.get(getHandle()) : null;
 	}
 
 	public <T> void setFieldValue(T value, String... names) {
-		getFieldResolver().<T>resolveWrapper(names).set(getHandle(), value);
+		FieldWrapper<T> wrapper = getFieldResolver().resolveWrapper(names);
+		if (wrapper != null) { wrapper.set(getHandle(), value); }
 	}
 
 	public Type getType() {
