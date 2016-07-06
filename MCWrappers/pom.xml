@@ -6,7 +6,7 @@
 
     <groupId>org.inventivetalent</groupId>
     <artifactId>mc-wrappers</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <name>MCWrappers</name>
 
     <build>
@@ -87,7 +87,7 @@
         <dependency>
             <groupId>org.inventivetalent</groupId>
             <artifactId>reflectionhelper</artifactId>
-            <version>[1.4.0,)</version>
+            <version>1.10.2</version>
         </dependency>
     </dependencies>
 
