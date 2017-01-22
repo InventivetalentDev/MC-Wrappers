@@ -9,7 +9,6 @@ import org.inventivetalent.reflection.resolver.wrapper.ClassWrapper;
 import org.inventivetalent.reflection.resolver.wrapper.ConstructorWrapper;
 import org.inventivetalent.reflection.resolver.wrapper.FieldWrapper;
 
-import javax.annotation.Nonnull;
 import java.util.Arrays;
 
 public abstract class Wrapper {
@@ -23,25 +22,25 @@ public abstract class Wrapper {
 	private final   Type          type;
 	protected final FieldResolver fieldResolver;
 
-	public Wrapper(@Nonnull Object handle) {
+	public Wrapper(Object handle) {
 		this.handle = handle;
 		this.classWrapper = new ClassWrapper<>(handle.getClass());
 		this.type = Type.fromPackage(handle.getClass().getName());
 		this.fieldResolver = new FieldResolver(handle.getClass());
 	}
 
-	public Wrapper(@Nonnull ClassWrapper classWrapper) {
+	public Wrapper(ClassWrapper classWrapper) {
 		this.handle = classWrapper.newInstance();
 		this.classWrapper = classWrapper;
 		this.type = Type.fromPackage(classWrapper.getName());
 		this.fieldResolver = new FieldResolver(classWrapper.getClazz());
 	}
 
-	public Wrapper(@Nonnull Class<?> clazz) {
+	public Wrapper(Class<?> clazz) {
 		this(new ClassWrapper<>(clazz));
 	}
 
-	public Wrapper(@Nonnull ClassWrapper classWrapper, ConstructorPopulator... populators) {
+	public Wrapper(ClassWrapper classWrapper, ConstructorPopulator... populators) {
 		this.classWrapper = classWrapper;
 		this.type = Type.fromPackage(classWrapper.getName());
 		this.fieldResolver = new FieldResolver(classWrapper.getClazz());
@@ -62,15 +61,15 @@ public abstract class Wrapper {
 		throw new IllegalArgumentException("no matching constructor found");
 	}
 
-	public Wrapper(@Nonnull Class<?> clazz, ConstructorPopulator... populators) {
+	public Wrapper(Class<?> clazz, ConstructorPopulator... populators) {
 		this(new ClassWrapper<>(clazz), populators);
 	}
 
-	public Wrapper(@Nonnull String... classNames) {
+	public Wrapper(String... classNames) {
 		this(CLASS_RESOLVER.resolveWrapper(classNames));
 	}
 
-	public Wrapper(@Nonnull Type type, String... classNames) {
+	public Wrapper(Type type, String... classNames) {
 		this(type.getClassResolver().resolveWrapper(classNames));
 	}
 
