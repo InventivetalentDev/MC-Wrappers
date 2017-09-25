@@ -14,6 +14,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+@SuppressWarnings({"unused", "WeakerAccess"})
 public class PropertyMapWrapper extends Wrapper {
 
 	static Class<?> Multimap           = CLASS_RESOLVER.resolveSilent("net.minecraft.util.com.google.common.collect.Multimap", "com.google.common.collect.Multimap");
@@ -32,8 +33,7 @@ public class PropertyMapWrapper extends Wrapper {
 
 	public PropertyMapWrapper(JsonArray jsonArray) {
 		this();
-		for (Iterator<JsonElement> iterator = jsonArray.iterator(); iterator.hasNext(); ) {
-			JsonElement next = iterator.next();
+		for (JsonElement next : jsonArray) {
 			if (next instanceof JsonObject) {
 				JsonObject jsonObject = next.getAsJsonObject();
 				put(jsonObject.get("name").getAsString(), new PropertyWrapper(jsonObject.get("name").getAsString(), jsonObject.get("value").getAsString(), jsonObject.has("signature") ? jsonObject.get("signature").getAsString() : null));
@@ -44,8 +44,7 @@ public class PropertyMapWrapper extends Wrapper {
 	@Deprecated
 	public PropertyMapWrapper(JSONArray jsonArray) {
 		this();
-		for (Iterator iterator = jsonArray.iterator(); iterator.hasNext(); ) {
-			Object next = iterator.next();
+		for (Object next : jsonArray) {
 			if (next instanceof JSONObject) {
 				JSONObject jsonObject = (JSONObject) next;
 				put((String) jsonObject.get("name"), new PropertyWrapper((String) jsonObject.get("name"), (String) jsonObject.get("value"), jsonObject.containsKey("signature") ? ((String) jsonObject.get("signature")) : null));
