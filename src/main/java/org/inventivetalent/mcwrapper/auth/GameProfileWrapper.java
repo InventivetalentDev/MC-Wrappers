@@ -9,6 +9,7 @@ import org.json.simple.JSONObject;
 
 import java.util.UUID;
 
+@SuppressWarnings({"unused", "WeakerAccess"})
 public class GameProfileWrapper extends Wrapper {
 
 	public GameProfileWrapper(final UUID uuid, final String name) {

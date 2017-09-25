@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import org.inventivetalent.mcwrapper.ConstructorPopulator;
 import org.inventivetalent.mcwrapper.Wrapper;
 
+@SuppressWarnings({"unused", "WeakerAccess"})
 public class PropertyWrapper extends Wrapper {
 
 	public PropertyWrapper(Object handle) {

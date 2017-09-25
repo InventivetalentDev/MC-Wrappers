@@ -11,6 +11,7 @@ import org.inventivetalent.reflection.resolver.wrapper.FieldWrapper;
 
 import java.util.Arrays;
 
+@SuppressWarnings({"unused", "WeakerAccess"})
 public abstract class Wrapper {
 
 	protected static final ClassResolver    CLASS_RESOLVER     = new ClassResolver();
@@ -73,11 +74,13 @@ public abstract class Wrapper {
 		this(type.getClassResolver().resolveWrapper(classNames));
 	}
 
+	@SuppressWarnings("unchecked")
 	public <T> T getFieldValue(String... names) {
 		FieldWrapper<T> wrapper = getFieldResolver().resolveWrapper(names);
 		return wrapper != null ? wrapper.get(getHandle()) : null;
 	}
 
+	@SuppressWarnings("unchecked")
 	public <T> void setFieldValue(T value, String... names) {
 		FieldWrapper<T> wrapper = getFieldResolver().resolveWrapper(names);
 		if (wrapper != null) { wrapper.set(getHandle(), value); }
