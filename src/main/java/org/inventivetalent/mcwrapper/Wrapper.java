@@ -1,5 +1,6 @@
 package org.inventivetalent.mcwrapper;
 
+import org.inventivetalent.reflection.accessor.FieldAccessor;
 import org.inventivetalent.reflection.resolver.ClassResolver;
 import org.inventivetalent.reflection.resolver.ConstructorResolver;
 import org.inventivetalent.reflection.resolver.FieldResolver;
@@ -7,7 +8,6 @@ import org.inventivetalent.reflection.resolver.minecraft.NMSClassResolver;
 import org.inventivetalent.reflection.resolver.minecraft.OBCClassResolver;
 import org.inventivetalent.reflection.resolver.wrapper.ClassWrapper;
 import org.inventivetalent.reflection.resolver.wrapper.ConstructorWrapper;
-import org.inventivetalent.reflection.resolver.wrapper.FieldWrapper;
 
 import java.util.Arrays;
 
@@ -74,13 +74,13 @@ public abstract class Wrapper {
 	}
 
 	public <T> T getFieldValue(String... names) {
-		FieldWrapper<T> wrapper = getFieldResolver().resolveWrapper(names);
-		return wrapper != null ? wrapper.get(getHandle()) : null;
+		FieldAccessor accessor = getFieldResolver().resolveAccessor(names);
+		return accessor != null ? accessor.get(getHandle()) : null;
 	}
 
 	public <T> void setFieldValue(T value, String... names) {
-		FieldWrapper<T> wrapper = getFieldResolver().resolveWrapper(names);
-		if (wrapper != null) { wrapper.set(getHandle(), value); }
+		FieldAccessor accessor = getFieldResolver().resolveAccessor(names);
+		if (accessor != null) { accessor.set(getHandle(), value); }
 	}
 
 	public Type getType() {
